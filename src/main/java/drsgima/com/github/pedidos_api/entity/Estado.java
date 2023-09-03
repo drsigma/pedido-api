@@ -1,5 +1,7 @@
 package drsgima.com.github.pedidos_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class Estado implements Serializable {
     private Integer id;
     private String nome;
     @OneToMany
+    @JsonIgnore
     @JoinColumn(name = "cidade_id")
     private List<Cidade> cidades = new ArrayList<>();
     public Estado(Integer id, String nome, List<Cidade> cidades) {

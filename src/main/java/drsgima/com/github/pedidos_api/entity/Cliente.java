@@ -1,8 +1,13 @@
 package drsgima.com.github.pedidos_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import drsgima.com.github.pedidos_api.Enum.Perfil;
+import drsgima.com.github.pedidos_api.Enum.TipoCliente;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Cliente implements Serializable {
@@ -27,16 +32,29 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "PERFIS")
     private Set<Integer> perfis = new HashSet<>();
 
-    public Cliente(Integer id, String nome, String email, String cpfCnpj, Integer tipo, String senha, List<Endereco> enderecos, Set<String> telefones, Set<Integer> perfis) {
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    private String imageUrl;
+
+    public Cliente(){
+        addPerfil(Perfil.CLIENTE);
+    }
+    public Cliente(Integer id, String nome, String email, String cpfCnpj, TipoCliente tipo, String senha) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.cpfCnpj = cpfCnpj;
-        this.tipo = tipo;
+        this.tipo = tipo == null ? null : tipo.getCodigo();
         this.senha = senha;
-        this.enderecos = enderecos;
-        this.telefones = telefones;
-        this.perfis = perfis;
+        addPerfil(Perfil.CLIENTE);
+
+
     }
 
     public Integer getId() {
@@ -71,18 +89,19 @@ public class Cliente implements Serializable {
         this.cpfCnpj = cpfCnpj;
     }
 
-    public Integer getTipo() {
-        return tipo;
+    public TipoCliente getTipo() {
+        return TipoCliente.toEnum(this.tipo);
     }
 
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
+    public void setTipo(TipoCliente tipo) {
+        this.tipo = tipo.getCodigo();
     }
 
     public String getSenha() {
         return senha;
     }
 
+    @JsonIgnore
     public void setSenha(String senha) {
         this.senha = senha;
     }
@@ -103,12 +122,14 @@ public class Cliente implements Serializable {
         this.telefones = telefones;
     }
 
-    public Set<Integer> getPerfis() {
-        return perfis;
+    public Set<Perfil> getPerfis() {
+        return perfis.stream()
+                .map(m -> Perfil.toEnum(m))
+                .collect(Collectors.toSet());
     }
 
-    public void setPerfis(Set<Integer> perfis) {
-        this.perfis = perfis;
+    public void addPerfil(Perfil perfil) {
+        this.perfis.add(perfil.getCodigo());
     }
 
     @Override

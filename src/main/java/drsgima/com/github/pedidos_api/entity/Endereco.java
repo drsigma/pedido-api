@@ -1,5 +1,7 @@
 package drsgima.com.github.pedidos_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -16,6 +18,7 @@ public class Endereco implements Serializable {
     private String cep;
     @ManyToOne
     @JoinColumn(name="cliente_id")
+    @JsonIgnore
     private Cliente cliente;
     @ManyToOne
     @JoinColumn(name="cidade_id")
