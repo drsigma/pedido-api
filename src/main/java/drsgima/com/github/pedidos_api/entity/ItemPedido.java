@@ -3,6 +3,8 @@ package drsgima.com.github.pedidos_api.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -10,7 +12,7 @@ import javax.persistence.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class ItemPedido implements Serializable {
+public class  ItemPedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -89,4 +91,31 @@ public class ItemPedido implements Serializable {
         this.preco = preco;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ItemPedido that = (ItemPedido) o;
+
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+    @Override
+    public String toString() {
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
+        StringBuffer sb = new StringBuffer();
+
+        sb.append(getProduto().getNome())
+                .append(", Qte: " + getQuantidade())
+                .append(", Preco Unitário: " + numberFormat.format(getPreco()))
+                .append(", Subtotal: " + numberFormat.format(getSubTotal()))
+                .append("\n");
+        return sb.toString();
+    }
 }
