@@ -2,8 +2,11 @@ package drsgima.com.github.pedidos_api.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -46,6 +49,7 @@ public class Pedido implements Serializable {
 
     public Pedido() {
     }
+
 
     public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
         this.id = id;
@@ -137,4 +141,20 @@ public class Pedido implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        StringBuffer sb = new StringBuffer();
+        sb.append("Pedido Número: " + getId())
+                .append(", Instante: " + simpleDateFormat.format(getInstante()))
+                .append(", Cliente: " + getCliente().getNome())
+                .append(", Situação do pagamento: " + getPagamento().getEstado().getDescricao())
+                .append("\nDetalhes:\n");
+        for (ItemPedido ip : getItens()) {
+            sb.append(ip.toString());
+        }
+        sb.append(", Valor total: " + numberFormat.format(getValorTotal()));
+        return sb.toString();
+    }
 }
