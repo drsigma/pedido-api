@@ -56,6 +56,11 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "PERFIS")
     private Set<Integer> perfis = new HashSet<>();
 
+    @OneToMany(mappedBy = "cliente")
+    @JsonIgnore
+    private List<Pedido> pedidos = new ArrayList<>();
+
+
     private String imageUrl;
 
     public Cliente() {
@@ -141,7 +146,13 @@ public class Cliente implements Serializable {
     public void setTelefones(Set<String> telefones) {
         this.telefones = telefones;
     }
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
 
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
     public Set<Perfil> getPerfis() {
         return perfis.stream()
                 .map(m -> Perfil.toEnum(m))
