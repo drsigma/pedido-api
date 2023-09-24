@@ -1,12 +1,13 @@
 package drsgima.com.github.pedidos_api.Dto;
 
+import drsgima.com.github.pedidos_api.Validation.ClienteInsert;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
-//@ClienteInsert
+@ClienteInsert
 public class ClienteNewDto implements Serializable {
     private static final long serialVersionUUID = 1L;
 

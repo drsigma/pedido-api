@@ -1,5 +1,6 @@
 package drsgima.com.github.pedidos_api.Dto;
 
+import drsgima.com.github.pedidos_api.Validation.ClienteUpdate;
 import drsgima.com.github.pedidos_api.entity.Cliente;
 import org.hibernate.validator.constraints.Length;
 
@@ -7,8 +8,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
-//@ClienteUpdate
-public class ClienteDto implements Serializable {
+@ClienteUpdate
+public class ClienteUpdateDto implements Serializable {
     private static final long serialVersionUUID = 1L;
 
     private Integer id;
@@ -19,10 +20,10 @@ public class ClienteDto implements Serializable {
     @NotEmpty(message = "Campo EMAIL é de preenchimento obrigatório")
     @Email(message = "Campo EMAIL invalído")
     private String email;
-    public ClienteDto(){
+    public ClienteUpdateDto(){
     }
 
-    public ClienteDto(Cliente cliente) {
+    public ClienteUpdateDto(Cliente cliente) {
         this.id = cliente.getId();
         this.nome = cliente.getNome();
         this.email = cliente.getEmail();
