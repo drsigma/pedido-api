@@ -2,7 +2,7 @@ package drsgima.com.github.pedidos_api.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import drsgima.com.github.pedidos_api.Enum.EstadoPagamento;
+import drsgima.com.github.pedidos_api.enums.EstadoPagamento;
 
 import javax.persistence.Entity;
 import java.util.Date;

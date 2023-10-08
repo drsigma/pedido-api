@@ -20,8 +20,8 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import  drsgima.com.github.pedidos_api.Enum.TipoCliente;
-import  drsgima.com.github.pedidos_api.Enum.Perfil;
+import  drsgima.com.github.pedidos_api.enums.TipoCliente;
+import  drsgima.com.github.pedidos_api.enums.Perfil;
 
 
 @Entity
